@@ -10,9 +10,9 @@ use Symfony\Component\Process\ProcessBuilder;
 
 class IfConfig
 {
-    const PATTERN_NET_NAME = '/^(\w+\d{1}):/';
-    const PATTERN_INET_IP = '/inet (' . Ip::PATTERN . ')/';
-    const PATTERN_ACTIVE = '/status: (active|inactive)?/';
+    const REGEXP_NET_NAME = '/' . Net::PATTERN_NAME . ':/';
+    const REGEXP_INET_IP = '/inet (' . Ip::PATTERN . ')/';
+    const REGEXP_ACTIVE = '/status: (active|inactive)?/';
 
     /** @var ProcessBuilder */
     private $processBuilder;
@@ -58,17 +58,17 @@ class IfConfig
 
         ListCollection::createGenericListFromArray('string', explode("\n", $data))
             ->each(function (string $line) use ($nets, &$netParts) {
-                if ($this->lineContains($line, self::PATTERN_NET_NAME)) {
+                if ($this->lineContains($line, self::REGEXP_NET_NAME)) {
                     if (!empty($netParts)) {
                         $this->addNet($netParts, $nets);
                         $netParts = [];
                     }
 
-                    $netParts['name'] = $this->parseLine($line, self::PATTERN_NET_NAME);
-                } elseif ($this->lineContains($line, self::PATTERN_INET_IP)) {
-                    $netParts['ip'] = new Ip($this->parseLine($line, self::PATTERN_INET_IP));
-                } elseif ($this->lineContains($line, self::PATTERN_ACTIVE)) {
-                    $netParts['active'] = $this->parseLine($line, self::PATTERN_ACTIVE) === 'active';
+                    $netParts['name'] = $this->parseLine($line, self::REGEXP_NET_NAME);
+                } elseif ($this->lineContains($line, self::REGEXP_INET_IP)) {
+                    $netParts['ip'] = new Ip($this->parseLine($line, self::REGEXP_INET_IP));
+                } elseif ($this->lineContains($line, self::REGEXP_ACTIVE)) {
+                    $netParts['active'] = $this->parseLine($line, self::REGEXP_ACTIVE) === 'active';
                 }
             });
 

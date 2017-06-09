@@ -2,6 +2,7 @@
 
 namespace MF\DockerIp\Service;
 
+use Assert\Assertion;
 use MF\Collection\Generic\IList;
 use MF\DockerIp\Entity\Ip;
 use MF\DockerIp\Entity\Net;
@@ -14,6 +15,14 @@ class NetResolver
      */
     public function findSuitableIp(IList $nets): Ip
     {
-        throw new \Exception(sprintf('Method %s is not implemented yet.', __METHOD__));
+        Assertion::false($nets->isEmpty(), 'There are no nets to choose from.');
+
+        $ip = $nets
+            ->filter('($net) => $net->isActive()')
+            ->first();
+
+        Assertion::notEmpty($ip, 'There are no active nets to choose from.');
+
+        return $ip->getIp();
     }
 }
