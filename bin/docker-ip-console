@@ -3,13 +3,21 @@
 
 namespace MF\DockerIp;
 
-function requireIfExists(string $file): bool
+use MF\DockerIp\Command\DistributeIpToHostCommand;
+use MF\DockerIp\Facade\DistributeIpToHostFacade;
+use MF\DockerIp\Service\DockerFile;
+use MF\DockerIp\Service\Hosts;
+use MF\DockerIp\Service\IfConfig;
+use MF\DockerIp\Service\NetResolver;
+use Symfony\Component\Console\Application;
+
+function requireIfExists(string $file)
 {
     if (file_exists($file)) {
         return require_once $file;
     }
 
-    return false;
+    return null;
 }
 
 if (!requireIfExists(__DIR__ . '/../vendor/autoload.php') // when used directly
@@ -24,6 +32,19 @@ if (!requireIfExists(__DIR__ . '/../vendor/autoload.php') // when used directly
 
 date_default_timezone_set('Europe/Prague');
 
-echo "MF/Docker-Ip\n";
+// services definition
+$distributeIpToHostFacade = new DistributeIpToHostFacade(
+    new IfConfig(),
+    new NetResolver(),
+    new Hosts(),
+    new DockerFile()
+);
+
+// app definition
+$application = new Application('docker-ip-console', '1.0.0');
+$application->addCommands([
+    new DistributeIpToHostCommand($distributeIpToHostFacade),
+]);
+$application->run();
 
 exit;

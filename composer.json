@@ -22,7 +22,8 @@
         "symfony/process": "^3.2",
         "symfony/config": "^3.2",
         "symfony/yaml": "^3.2",
-        "beberlei/assert": "^2.6"
+        "beberlei/assert": "^2.6",
+        "mf/collections-php": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
