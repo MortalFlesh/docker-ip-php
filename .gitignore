@@ -1,3 +1,6 @@
 /vendor/
 /code-coverage/
 composer.lock
+
+bin/
+!/bin/docker-ip-console
