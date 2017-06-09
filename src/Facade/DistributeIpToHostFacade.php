@@ -39,7 +39,7 @@ class DistributeIpToHostFacade
         $this->ip = $this->netsResolver->findSuitableIp($nets);
 
         $this->hosts->replace($hostsPath, $domain, $this->ip);
-        $this->dockerFile->replace($dockerFilePath, $placeholder);
+        $this->dockerFile->replace($dockerFilePath, $placeholder, $this->ip);
     }
 
     public function getIp(): Ip

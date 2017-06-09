@@ -9,7 +9,9 @@ use MF\DockerIp\Service\DockerFile;
 use MF\DockerIp\Service\Hosts;
 use MF\DockerIp\Service\IfConfig;
 use MF\DockerIp\Service\NetResolver;
+use MF\DockerIp\Service\RegexHelper;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Process\ProcessBuilder;
 
 function requireIfExists(string $file)
 {
@@ -34,7 +36,7 @@ date_default_timezone_set('Europe/Prague');
 
 // services definition
 $distributeIpToHostFacade = new DistributeIpToHostFacade(
-    new IfConfig(),
+    new IfConfig(new ProcessBuilder(), new RegexHelper()),
     new NetResolver(),
     new Hosts(),
     new DockerFile()

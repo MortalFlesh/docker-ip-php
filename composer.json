@@ -30,7 +30,8 @@
         "phpstan/phpstan": "^0.6.3",
         "friendsofphp/php-cs-fixer": "^2.1",
         "squizlabs/php_codesniffer": "^2.8",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "mockery/mockery": "^0.9.9"
     },
     "bin": [
         "bin/docker-ip-console"
@@ -48,13 +49,12 @@
             "@phpunit",
             "@phpstan"
         ],
-        "phpstan": "bin/phpstan analyse -l 5 -c phpstan.neon src tests",
-        "phpunit": "php -dxdebug.coverage_enable=1 bin/phpunit --configuration phpunit.xml.dist tests",
         "cs": "./bin/phpcs --standard=ruleset.xml .",
+        "phpunit": "bin/phpunit -c phpunit.xml.dist",
+        "phpstan": "bin/phpstan analyse -l 5 -c phpstan.neon src tests",
         "fix": [
             "./bin/php-cs-fixer fix src",
             "./bin/php-cs-fixer fix tests",
-            "./bin/php-cs-fixer fix selenium-tests/tests",
             "./bin/phpcbf --standard=ruleset.xml ."
         ]
     }

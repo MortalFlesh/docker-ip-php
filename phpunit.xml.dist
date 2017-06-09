@@ -19,6 +19,16 @@
         </testsuite>
     </testsuites>
 
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/Command</directory>
+                <directory>src/Exception</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
     <logging>
         <log type="coverage-html" target="./code-coverage" title="MF/Docker-ip"
              charset="UTF-8" yui="true" highlight="true"
