@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+namespace MF\DockerIp;
+
+function requireIfExists(string $file): bool
+{
+    if (file_exists($file)) {
+        return require_once $file;
+    }
+
+    return false;
+}
+
+if (!requireIfExists(__DIR__ . '/../vendor/autoload.php') // when used directly
+    && !requireIfExists(__DIR__ . '/../../../autoload.php') // when installed as dependency
+) {
+    die(
+        'You must set up the project dependencies, run the following commands:' . PHP_EOL .
+        'curl -sS https://getcomposer.org/installer | php' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+}
+
+date_default_timezone_set('Europe/Prague');
+
+echo "MF/Docker-Ip\n";
+
+exit;

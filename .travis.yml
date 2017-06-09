@@ -1,0 +1,12 @@
+language: php
+php:
+    - '7.1'
+
+install:
+    - composer install
+
+before-script:
+    - mkdir -p code-coverage
+
+script:
+    - phpunit --configuration phpunit.xml.dist

@@ -1,0 +1,33 @@
+{
+    "name": "mf/docker-ip",
+    "authors": [
+        {
+            "name": "Petr Chromec"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MF\\DockerIp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MF\\DockerIp\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "symfony/console": "^3.2",
+        "symfony/filesystem": "^3.2",
+        "symfony/process": "^3.2",
+        "symfony/config": "^3.2",
+        "symfony/yaml": "^3.2",
+        "beberlei/assert": "^2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "bin": [
+        "bin/docker-ip-console"
+    ]
+}
