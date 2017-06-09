@@ -10,3 +10,6 @@ before-script:
 
 script:
     - phpunit --configuration phpunit.xml.dist
+
+after_success:
+    - travis_retry php vendor/bin/coveralls -v
