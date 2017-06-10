@@ -1,13 +1,14 @@
 {
     "name": "mf/docker-ip",
     "description": "Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file and allows revert changes.",
+    "version": "1.0.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Petr Chromec",
             "email": "mortal_flesh@seznam.cz"
         }
     ],
-    "license": "MIT",
     "autoload": {
         "psr-4": {
             "MF\\DockerIp\\": "src/"
