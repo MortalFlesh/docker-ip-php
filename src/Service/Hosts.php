@@ -21,6 +21,7 @@ class Hosts
     public function replace(string $hostsPath, string $domain, Ip $ip): void
     {
         Assertion::file($hostsPath, sprintf('Hosts file "%s" is not found.', $hostsPath));
+        Assertion::writeable($hostsPath, sprintf('Hosts file "%s" is not writeable.', $hostsPath));
 
         $hostsContent = file_get_contents($hostsPath);
         $newHostLines = new ListCollection('string');

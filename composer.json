@@ -1,8 +1,10 @@
 {
     "name": "mf/docker-ip",
+    "description": "Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file.",
     "authors": [
         {
-            "name": "Petr Chromec"
+            "name": "Petr Chromec",
+            "email": "mortal_flesh@seznam.cz"
         }
     ],
     "autoload": {

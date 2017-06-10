@@ -25,7 +25,7 @@ class DistributeIpToHostCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setDescription('...')
+            ->setDescription('Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file')
             ->addOption('domain', 'd', InputOption::VALUE_REQUIRED, 'Your local domain')
             ->addOption('docker-file', null, InputOption::VALUE_REQUIRED, 'Full path to your docker compose yml')
             ->addOption(
