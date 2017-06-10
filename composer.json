@@ -1,8 +1,10 @@
 {
     "name": "mf/docker-ip",
+    "description": "Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file and allows revert changes.",
     "authors": [
         {
-            "name": "Petr Chromec"
+            "name": "Petr Chromec",
+            "email": "mortal_flesh@seznam.cz"
         }
     ],
     "autoload": {
@@ -22,13 +24,40 @@
         "symfony/process": "^3.2",
         "symfony/config": "^3.2",
         "symfony/yaml": "^3.2",
-        "beberlei/assert": "^2.6"
+        "beberlei/assert": "^2.6",
+        "mf/collections-php": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "satooshi/php-coveralls": "^1.0"
+        "phpunit/phpunit": "^6.0",
+        "phpstan/phpstan": "^0.6.3",
+        "friendsofphp/php-cs-fixer": "^2.1",
+        "squizlabs/php_codesniffer": "^2.8",
+        "satooshi/php-coveralls": "^1.0",
+        "mockery/mockery": "^0.9.9"
     },
     "bin": [
         "bin/docker-ip-console"
-    ]
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-bin-dir": "bin",
+        "symfony-tests-dir": "tests"
+    },
+    "scripts": {
+        "test": [
+            "@cs",
+            "@phpunit",
+            "@phpstan"
+        ],
+        "cs": "./bin/phpcs --standard=ruleset.xml .",
+        "phpunit": "bin/phpunit -c phpunit.xml.dist",
+        "phpstan": "bin/phpstan analyse -l 5 -c phpstan.neon src tests",
+        "fix": [
+            "./bin/php-cs-fixer fix src",
+            "./bin/php-cs-fixer fix tests",
+            "./bin/phpcbf --standard=ruleset.xml ."
+        ]
+    }
 }

@@ -1,0 +1,13 @@
+en0: flags=8823<UP,BROADCAST,SMART,SIMPLEX,MULTICAST> mtu 1500
+	ether 9c:11:85:cd:01:a6
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (<unknown type>)
+	status: inactive
+en1: flags=963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX> mtu 1500
+	options=60<TSO4,TSO6>
+	ether 32:14:23:87:60:00
+	media: autoselect <full-duplex>
+	status: inactive
+vboxnet0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether 0a:00:27:00:00:00 
+	inet 192.168.100.1 netmask 0xffffff00 broadcast 192.168.100.255
