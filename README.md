@@ -69,7 +69,7 @@ vendor/bin/docker-ip-console docker-ip:revert [options]
 #### Example of `DOCKER_FILE.yml`
 ```yaml
 extra_hosts:
-  #REPLACED_BY_DOCKER_IP - "your_domain:DOCKER_IP_PLACEHOLDER"
+#REPLACED_BY_DOCKER_IP       - "your_domain:DOCKER_IP_PLACEHOLDER"
   - "your_domain:{DOCKER_IP}"
 ```
 

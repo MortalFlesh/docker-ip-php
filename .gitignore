@@ -6,3 +6,4 @@ bin/
 !/bin/docker-ip-console
 
 tests/Fixtures/hosts
+tests/Fixtures/docker-file.yml

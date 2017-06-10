@@ -1,0 +1,11 @@
+version: '2.1'
+services:
+  chrome:
+    image: selenium/node-chrome:3.0.1
+    extra_hosts:
+      - "your_domain:DOCKER_IP_PLACEHOLDER"
+
+  chrome-debug:
+    image: selenium/node-chrome-debug:3.0.1
+    extra_hosts:
+      - "your_domain:DOCKER_IP_PLACEHOLDER"
