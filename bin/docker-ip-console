@@ -11,6 +11,7 @@ use MF\DockerIp\Service\Hosts;
 use MF\DockerIp\Service\IfConfig;
 use MF\DockerIp\Service\NetResolver;
 use MF\DockerIp\Service\RegexHelper;
+use MF\DockerIp\Service\StringHelper;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -37,11 +38,12 @@ date_default_timezone_set('Europe/Prague');
 
 // services definition
 $regexHelper = new RegexHelper();
+$stringHelper = new StringHelper();
 
 $distributeIpToHostFacade = new DistributeIpToHostFacade(
     new IfConfig(new ProcessBuilder(), $regexHelper),
     new NetResolver(),
-    new Hosts($regexHelper),
+    new Hosts($regexHelper, $stringHelper),
     new DockerFile()
 );
 

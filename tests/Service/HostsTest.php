@@ -5,6 +5,7 @@ namespace MF\DockerIp\tests\Service;
 use MF\DockerIp\Entity\Ip;
 use MF\DockerIp\Service\Hosts;
 use MF\DockerIp\Service\RegexHelper;
+use MF\DockerIp\Service\StringHelper;
 use MF\DockerIp\Tests\AbstractTestCase;
 
 class HostsTest extends AbstractTestCase
@@ -17,7 +18,8 @@ class HostsTest extends AbstractTestCase
     public function setUp()
     {
         $this->hosts = new Hosts(
-            new RegexHelper()
+            new RegexHelper(),
+            new StringHelper()
         );
     }
 
@@ -46,5 +48,26 @@ class HostsTest extends AbstractTestCase
 
         $this->assertFileNotEquals($path . 'hosts_updated', $hostsPath);
         $this->assertFileEquals($path . 'hosts_original', $hostsPath);
+    }
+
+    public function testShouldRevertChanges()
+    {
+        $path = __DIR__ . '/../Fixtures/';
+        $hostsPath = $this->copyFile($path, 'hosts_updated', 'hosts');
+
+        $this->hosts->revert($hostsPath);
+
+        $this->assertFileEquals($path . 'hosts_original', $hostsPath);
+    }
+
+    public function testShouldNOTRevertChangesOnDryRun()
+    {
+        $path = __DIR__ . '/../Fixtures/';
+        $hostsPath = $this->copyFile($path, 'hosts_updated', 'hosts');
+
+        $this->hosts->revert($hostsPath, true);
+
+        $this->assertFileNotEquals($path . 'hosts_original', $hostsPath);
+        $this->assertFileEquals($path . 'hosts_updated', $hostsPath);
     }
 }

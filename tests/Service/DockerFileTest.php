@@ -4,6 +4,7 @@ namespace MF\DockerIp\tests\Service;
 
 use MF\DockerIp\Entity\Ip;
 use MF\DockerIp\Service\DockerFile;
+use MF\DockerIp\Service\StringHelper;
 use MF\DockerIp\Tests\AbstractTestCase;
 
 class DockerFileTest extends AbstractTestCase
@@ -16,7 +17,9 @@ class DockerFileTest extends AbstractTestCase
 
     public function setUp()
     {
-        $this->dockerFile = new DockerFile();
+        $this->dockerFile = new DockerFile(
+            new StringHelper()
+        );
     }
 
     public function testShouldReplacePlaceholderInDockerFile()
