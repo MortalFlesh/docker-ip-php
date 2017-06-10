@@ -3,9 +3,9 @@ Docker Ip
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/mf/docker-ip-php.svg)](https://packagist.org/packages/mf/docker-ip-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/mf/docker-ip-php.svg)](https://packagist.org/packages/mf/docker-ip-php)
-[![License](https://img.shields.io/packagist/l/mf/docker-ip-php.svg)](https://packagist.org/packages/mf/docker-ip-php)
 [![Build Status](https://travis-ci.org/MortalFlesh/docker-ip-php.svg?branch=master)](https://travis-ci.org/MortalFlesh/docker-ip-php)
 [![Coverage Status](https://coveralls.io/repos/github/MortalFlesh/docker-ip-php/badge.svg?branch=master)](https://coveralls.io/github/MortalFlesh/docker-ip-php?branch=master)
+[![License](https://img.shields.io/packagist/l/mf/docker-ip-php.svg)](https://packagist.org/packages/mf/docker-ip-php)
 
 Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file and allows revert changes.
 
