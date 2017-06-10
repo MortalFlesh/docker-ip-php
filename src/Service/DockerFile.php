@@ -4,12 +4,11 @@ namespace MF\DockerIp\Service;
 
 use Assert\Assertion;
 use MF\Collection\Mutable\Generic\ListCollection;
+use MF\DockerIp\Constant\DockerIp;
 use MF\DockerIp\Entity\Ip;
 
 class DockerFile
 {
-    const REPLACED_PLACEHOLDER = '#REPLACED_BY_DOCKER_IP ';
-
     /** @var StringHelper */
     private $stringHelper;
 
@@ -28,7 +27,7 @@ class DockerFile
         $lines = ListCollection::createGenericListFromArray('string', explode("\n", $dockerFileContents));
         $lines->each(function (string $line) use ($placeholder, $newDockerFileLines, $ip): void {
             if ($this->containsPlaceholder($line, $placeholder)) {
-                $replacedLine = self::REPLACED_PLACEHOLDER . $line;
+                $replacedLine = DockerIp::REPLACED_PLACEHOLDER . $line;
                 $newDockerFileLines->add($replacedLine);
 
                 $line = str_replace($placeholder, $ip->getValue(), $line);
@@ -77,7 +76,7 @@ class DockerFile
             }
 
             if ($this->isChangedLine($line)) {
-                $line = str_replace(self::REPLACED_PLACEHOLDER, '', $line);
+                $line = str_replace(DockerIp::REPLACED_PLACEHOLDER, '', $line);
                 $ignoreLine = true;
             }
 
@@ -97,6 +96,6 @@ class DockerFile
 
     private function isChangedLine(string $line): bool
     {
-        return $this->stringHelper->contains($line, self::REPLACED_PLACEHOLDER);
+        return $this->stringHelper->contains($line, DockerIp::REPLACED_PLACEHOLDER);
     }
 }
