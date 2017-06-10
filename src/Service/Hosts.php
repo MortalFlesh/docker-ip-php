@@ -8,7 +8,7 @@ use MF\DockerIp\Entity\Ip;
 
 class Hosts
 {
-    const PLACEHOLDER = '#REPLACED_BY_DOCKER_IP ';
+    const REPLACED_PLACEHOLDER = '#REPLACED_BY_DOCKER_IP ';
 
     /** @var RegexHelper */
     private $regexHelper;
@@ -32,7 +32,7 @@ class Hosts
         $lines = ListCollection::createGenericListFromArray('string', explode("\n", $hostsContent));
         $lines->each(function (string $line) use ($domain, $newHostLines, $ip): void {
             if ($this->isDomainLine($line, $domain)) {
-                $replacedLine = self::PLACEHOLDER . $line;
+                $replacedLine = self::REPLACED_PLACEHOLDER . $line;
                 $newHostLines->add($replacedLine);
 
                 $line = str_replace('127.0.0.1', $ip->getValue(), $line);
@@ -81,7 +81,7 @@ class Hosts
             }
 
             if ($this->isChangedLine($line)) {
-                $line = str_replace(self::PLACEHOLDER, '', $line);
+                $line = str_replace(self::REPLACED_PLACEHOLDER, '', $line);
                 $ignoreLine = true;
             }
 
@@ -101,6 +101,6 @@ class Hosts
 
     private function isChangedLine(string $line): bool
     {
-        return $this->stringHelper->contains($line, self::PLACEHOLDER);
+        return $this->stringHelper->contains($line, self::REPLACED_PLACEHOLDER);
     }
 }

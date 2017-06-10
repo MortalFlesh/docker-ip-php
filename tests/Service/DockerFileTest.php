@@ -46,4 +46,25 @@ class DockerFileTest extends AbstractTestCase
         $this->assertFileNotEquals($path . 'docker-file_updated.yml', $dockerFilePath);
         $this->assertFileEquals($path . 'docker-file_original.yml', $dockerFilePath);
     }
+
+    public function testShouldRevertChanges()
+    {
+        $path = __DIR__ . '/../Fixtures/';
+        $dockerFilePath = $this->copyFile($path, 'docker-file_updated.yml', 'docker-file.yml');
+
+        $this->dockerFile->revert($dockerFilePath);
+
+        $this->assertFileEquals($path . 'docker-file_original.yml', $dockerFilePath);
+    }
+
+    public function testShouldNOTRevertChangesOnDryRun()
+    {
+        $path = __DIR__ . '/../Fixtures/';
+        $dockerFilePath = $this->copyFile($path, 'docker-file_updated.yml', 'docker-file.yml');
+
+        $this->dockerFile->revert($dockerFilePath, true);
+
+        $this->assertFileNotEquals($path . 'docker-file_original.yml', $dockerFilePath);
+        $this->assertFileEquals($path . 'docker-file_updated.yml', $dockerFilePath);
+    }
 }

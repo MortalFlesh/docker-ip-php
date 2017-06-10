@@ -23,8 +23,9 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
-                <directory>src/Command</directory>
                 <directory>src/Exception</directory>
+                <directory>src/Command</directory>
+                <directory>src/Constant</directory>
             </exclude>
         </whitelist>
     </filter>

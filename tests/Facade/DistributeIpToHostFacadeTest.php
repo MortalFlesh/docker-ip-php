@@ -91,11 +91,20 @@ class DistributeIpToHostFacadeTest extends AbstractTestCase
         $this->facade->revert($hostsPath, $dockerFilePath);
 
         $this->hosts->shouldHaveReceived('revert')
-            ->with($hostsPath)
+            ->with($hostsPath, true)
             ->once();
-
         $this->dockerFile->shouldHaveReceived('revert')
             ->with($dockerFilePath)
             ->once();
+
+        $this->hosts->shouldHaveReceived('revert')
+            ->with($hostsPath, true)
+            ->once();
+        $this->dockerFile->shouldHaveReceived('revert')
+            ->with($dockerFilePath)
+            ->once();
+
+        // it is void method and only asserts are by calling methods above
+        $this->assertTrue(true);
     }
 }

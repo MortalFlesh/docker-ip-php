@@ -44,7 +44,7 @@ $distributeIpToHostFacade = new DistributeIpToHostFacade(
     new IfConfig(new ProcessBuilder(), $regexHelper),
     new NetResolver(),
     new Hosts($regexHelper, $stringHelper),
-    new DockerFile()
+    new DockerFile($stringHelper)
 );
 
 // app definition
