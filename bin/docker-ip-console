@@ -35,10 +35,12 @@ if (!requireIfExists(__DIR__ . '/../vendor/autoload.php') // when used directly
 date_default_timezone_set('Europe/Prague');
 
 // services definition
+$regexHelper = new RegexHelper();
+
 $distributeIpToHostFacade = new DistributeIpToHostFacade(
-    new IfConfig(new ProcessBuilder(), new RegexHelper()),
+    new IfConfig(new ProcessBuilder(), $regexHelper),
     new NetResolver(),
-    new Hosts(),
+    new Hosts($regexHelper),
     new DockerFile()
 );
 

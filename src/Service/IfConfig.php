@@ -57,7 +57,7 @@ class IfConfig
         $netParts = [];
 
         ListCollection::createGenericListFromArray('string', explode("\n", $data))
-            ->each(function (string $line) use ($nets, &$netParts) {
+            ->each(function (string $line) use ($nets, &$netParts): void {
                 if ($this->lineContains($line, self::REGEXP_NET_NAME)) {
                     if (!empty($netParts)) {
                         $this->addNet($netParts, $nets);

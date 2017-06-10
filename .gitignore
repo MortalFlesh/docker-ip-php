@@ -4,3 +4,5 @@ composer.lock
 
 bin/
 !/bin/docker-ip-console
+
+tests/Fixtures/hosts
