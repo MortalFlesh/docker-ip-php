@@ -38,6 +38,11 @@ class DistributeIpToHostFacade
         $nets = $this->ifConfig->getNets();
         $this->ip = $this->netsResolver->findSuitableIp($nets);
 
+        // dry run first
+        $this->hosts->replace($hostsPath, $domain, $this->ip, true);
+        $this->dockerFile->replace($dockerFilePath, $placeholder, $this->ip, true);
+
+        // real run
         $this->hosts->replace($hostsPath, $domain, $this->ip);
         $this->dockerFile->replace($dockerFilePath, $placeholder, $this->ip);
     }

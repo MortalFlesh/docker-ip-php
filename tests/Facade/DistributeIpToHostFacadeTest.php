@@ -67,9 +67,15 @@ class DistributeIpToHostFacadeTest extends AbstractTestCase
         $ip = $this->facade->getIp();
 
         $this->hosts->shouldHaveReceived('replace')
-            ->with($hostsPath, $domain, $expectedIp)
+            ->with($hostsPath, $domain, $expectedIp, true)
+            ->once();
+        $this->dockerFile->shouldHaveReceived('replace')
+            ->with($dockerFilePath, $placeholder, $expectedIp, true)
             ->once();
 
+        $this->hosts->shouldHaveReceived('replace')
+            ->with($hostsPath, $domain, $expectedIp)
+            ->once();
         $this->dockerFile->shouldHaveReceived('replace')
             ->with($dockerFilePath, $placeholder, $expectedIp)
             ->once();

@@ -18,7 +18,7 @@ class Hosts
         $this->regexHelper = $regexHelper;
     }
 
-    public function replace(string $hostsPath, string $domain, Ip $ip): void
+    public function replace(string $hostsPath, string $domain, Ip $ip, bool $dryRun = false): void
     {
         Assertion::file($hostsPath, sprintf('Hosts file "%s" is not found.', $hostsPath));
         Assertion::writeable($hostsPath, sprintf('Hosts file "%s" is not writeable.', $hostsPath));
@@ -44,7 +44,9 @@ class Hosts
             sprintf('Domain "%s" was not replaced in "%s" file.', $domain, $hostsPath)
         );
 
-        file_put_contents($hostsPath, implode("\n", $newHostLines->toArray()));
+        if (!$dryRun) {
+            file_put_contents($hostsPath, implode("\n", $newHostLines->toArray()));
+        }
     }
 
     private function isDomainLine(string $line, string $domain): bool

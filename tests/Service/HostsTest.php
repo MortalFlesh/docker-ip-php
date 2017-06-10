@@ -33,4 +33,18 @@ class HostsTest extends AbstractTestCase
 
         $this->assertFileEquals($path . 'hosts_updated', $hostsPath);
     }
+
+    public function testShouldNOTReplaceOriginalDomainLineBySuitableDockerIpOnDryRun()
+    {
+        $path = __DIR__ . '/../Fixtures/';
+
+        $ip = new Ip(self::SUITABLE_IP);
+        $hostsPath = $this->copyFile($path, 'hosts_original', 'hosts');
+        $domain = 'your_domain';
+
+        $this->hosts->replace($hostsPath, $domain, $ip, true);
+
+        $this->assertFileNotEquals($path . 'hosts_updated', $hostsPath);
+        $this->assertFileEquals($path . 'hosts_original', $hostsPath);
+    }
 }

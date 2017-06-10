@@ -10,7 +10,7 @@ class DockerFile
 {
     const PLACEHOLDER = '#REPLACED_BY_DOCKER_IP ';
 
-    public function replace(string $dockerFilePath, string $placeholder, Ip $ip): void
+    public function replace(string $dockerFilePath, string $placeholder, Ip $ip, bool $dryRun = false): void
     {
         Assertion::file($dockerFilePath, sprintf('Docker file "%s" is not found.', $dockerFilePath));
 
@@ -35,7 +35,9 @@ class DockerFile
             sprintf('Placeholder "%s" was not replaced in "%s" file.', $placeholder, $dockerFilePath)
         );
 
-        file_put_contents($dockerFilePath, implode("\n", $newDockerFileLines->toArray()));
+        if (!$dryRun) {
+            file_put_contents($dockerFilePath, implode("\n", $newDockerFileLines->toArray()));
+        }
     }
 
     private function containsPlaceholder(string $line, string $placeholder): bool
