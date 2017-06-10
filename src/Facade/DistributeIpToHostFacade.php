@@ -33,7 +33,7 @@ class DistributeIpToHostFacade
         $this->dockerFile = $dockerFile;
     }
 
-    public function distributeIpToHost(string $domain, string $dockerFilePath, string $hostsPath, string $placeholder)
+    public function distributeIpToHost(string $domain, string $hostsPath, string $dockerFilePath, string $placeholder)
     {
         $nets = $this->ifConfig->getNets();
         $this->ip = $this->netsResolver->findSuitableIp($nets);
@@ -50,5 +50,16 @@ class DistributeIpToHostFacade
     public function getIp(): Ip
     {
         return $this->ip;
+    }
+
+    public function revert(string $hostsPath, string $dockerFilePath): void
+    {
+        // dry run first
+        $this->hosts->revert($hostsPath, true);
+        $this->dockerFile->revert($dockerFilePath, true);
+
+        // real run
+        $this->hosts->revert($hostsPath);
+        $this->dockerFile->revert($dockerFilePath);
     }
 }

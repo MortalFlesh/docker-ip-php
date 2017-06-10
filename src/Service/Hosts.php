@@ -53,4 +53,9 @@ class Hosts
     {
         return $this->regexHelper->contains($line, sprintf('/127\.0\.0\.1\s+(%s){1}$/', $domain));
     }
+
+    public function revert(string $hostsPath, bool $dryRun = false): void
+    {
+        throw new \Exception(sprintf('Method %s is not implemented yet.', __METHOD__));
+    }
 }

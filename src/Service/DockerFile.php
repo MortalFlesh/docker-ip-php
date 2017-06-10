@@ -44,4 +44,9 @@ class DockerFile
     {
         return strpos($line, $placeholder) !== false;
     }
+
+    public function revert(string $dockerFilePath, bool $dryRun = false): void
+    {
+        throw new \Exception(sprintf('Method %s is not implemented yet.', __METHOD__));
+    }
 }

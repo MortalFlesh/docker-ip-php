@@ -4,6 +4,7 @@
 namespace MF\DockerIp;
 
 use MF\DockerIp\Command\DistributeIpToHostCommand;
+use MF\DockerIp\Command\RevertCommand;
 use MF\DockerIp\Facade\DistributeIpToHostFacade;
 use MF\DockerIp\Service\DockerFile;
 use MF\DockerIp\Service\Hosts;
@@ -48,6 +49,7 @@ $distributeIpToHostFacade = new DistributeIpToHostFacade(
 $application = new Application('docker-ip-console', '1.0.0');
 $application->addCommands([
     new DistributeIpToHostCommand($distributeIpToHostFacade),
+    new RevertCommand($distributeIpToHostFacade),
 ]);
 $application->run();
 

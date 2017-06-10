@@ -1,7 +1,7 @@
 Docker Ip
 =========
 
-Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file.
+Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file and allows revert changes.
 
 [![Build Status](https://travis-ci.org/MortalFlesh/docker-ip-php.svg?branch=master)](https://travis-ci.org/MortalFlesh/docker-ip-php)
 [![Coverage Status](https://coveralls.io/repos/github/MortalFlesh/docker-ip-php/badge.svg?branch=master)](https://coveralls.io/github/MortalFlesh/docker-ip-php?branch=master)
@@ -16,12 +16,24 @@ _TODO_
 
 ### Show list of available commands
 ```bash
-bin/docker-ip-console list
+vendor/bin/docker-ip-console list
 ```
 
-_TODO_: show current list here
+### Usage:
+```bash
+vendor/bin/docker-ip-console [command] [arguments]
+```
+
+#### Available commands:
+      help                          Displays help for a command
+      list                          Lists commands
+     docker-ip
+      docker-ip:distributeIpToHost  Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file
+      docker-ip:revert              Reverts changes from `distributeIpToHost` in hosts and docker file
+
 
 ### Distribute IP to Host
+Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file.
 
 #### Usage:
 ```bash
@@ -52,7 +64,9 @@ extra_hosts:
   - "your_domain:DOCKER_IP_PLACEHOLDER"
 ```
 
+
 ### Revert changes
+Reverts changes from `distributeIpToHost` in hosts and docker file
 
 #### Usage:
 ```bash
@@ -60,7 +74,15 @@ vendor/bin/docker-ip-console docker-ip:revert [options]
 ```
 
 #### Options:
-    _TODO_
+           --docker-file=DOCKER-FILE  Full path to your docker compose yml
+           --hosts[=HOSTS]            Full path to your hosts file [default: "/etc/hosts"]
+       -h, --help                     Display this help message
+       -q, --quiet                    Do not output any message
+       -V, --version                  Display this application version
+           --ansi                     Force ANSI output
+           --no-ansi                  Disable ANSI output
+       -n, --no-interaction           Do not ask any interactive question
+       -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 #### Example of `/etc/hosts`
 ```
@@ -74,17 +96,3 @@ extra_hosts:
 #REPLACED_BY_DOCKER_IP       - "your_domain:DOCKER_IP_PLACEHOLDER"
   - "your_domain:{DOCKER_IP}"
 ```
-
-# Development
-
-## Install
-
-```bash
-composer install
-```
-
-## How it works?
-
-- runs `ifconfig` to get list of available nets
-- finds suitable IP for local hosts
-- distribute IP to hosts for domain you specified in args

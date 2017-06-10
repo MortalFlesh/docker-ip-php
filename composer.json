@@ -1,6 +1,6 @@
 {
     "name": "mf/docker-ip",
-    "description": "Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file.",
+    "description": "Finds suitable IP from `ifconfig` and then distribute this IP into hosts and docker file and allows revert changes.",
     "authors": [
         {
             "name": "Petr Chromec",

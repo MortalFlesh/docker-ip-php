@@ -48,8 +48,8 @@ class DistributeIpToHostFacadeTest extends AbstractTestCase
     public function testShouldDistributeIpToHost()
     {
         $domain = 'your_domain';
-        $dockerFilePath = '/myapp/docker-compose.yml';
         $hostsPath = '/etc/hosts';
+        $dockerFilePath = '/myapp/docker-compose.yml';
         $placeholder = 'DOCKER_IP_PLACEHOLDER';
 
         $nets = new ListCollection(Net::class);
@@ -63,7 +63,7 @@ class DistributeIpToHostFacadeTest extends AbstractTestCase
             ->with($nets)
             ->andReturn($expectedIp);
 
-        $this->facade->distributeIpToHost($domain, $dockerFilePath, $hostsPath, $placeholder);
+        $this->facade->distributeIpToHost($domain, $hostsPath, $dockerFilePath, $placeholder);
         $ip = $this->facade->getIp();
 
         $this->hosts->shouldHaveReceived('replace')
@@ -81,5 +81,21 @@ class DistributeIpToHostFacadeTest extends AbstractTestCase
             ->once();
 
         $this->assertSame($expectedIp, $ip);
+    }
+
+    public function testShouldRevertChangesDoneByDistribute()
+    {
+        $hostsPath = '/etc/hosts';
+        $dockerFilePath = '/myapp/docker-compose.yml';
+
+        $this->facade->revert($hostsPath, $dockerFilePath);
+
+        $this->hosts->shouldHaveReceived('revert')
+            ->with($hostsPath)
+            ->once();
+
+        $this->dockerFile->shouldHaveReceived('revert')
+            ->with($dockerFilePath)
+            ->once();
     }
 }
